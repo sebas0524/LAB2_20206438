@@ -15,11 +15,13 @@ public class Juego extends AppCompatActivity {
 
     Button[] palabraButtons = new Button[12];
     Button btnJugar;
+    //long  tiempoInicio;
     ImageButton btnBack, btnExpand;
 
     String[] oracionCorrecta;
     List<String> seleccionUsuario = new ArrayList<>();
     int intento = 0;
+    long tiempoInicio;
 
     String[][] oracionesSoftware = {
             {"La", "fibra", "óptica", "envía", "datos", "a", "gran", "velocidad", "evitando", "cualquier", "interferencia", "eléctrica"},
@@ -84,6 +86,7 @@ public class Juego extends AppCompatActivity {
     private void iniciarJuego() {
         seleccionUsuario.clear();
         intento = 0;
+        tiempoInicio = System.currentTimeMillis(); // 👈 Marcamos el inicio
 
         List<String> palabras = Arrays.asList(oracionCorrecta.clone());
         Collections.shuffle(palabras);
@@ -92,7 +95,7 @@ public class Juego extends AppCompatActivity {
             Button btn = palabraButtons[i];
             String palabra = palabras.get(i);
 
-            btn.setText(""); // Inicialmente oculto
+            btn.setText("");
             btn.setEnabled(true);
             btn.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
 
@@ -106,23 +109,32 @@ public class Juego extends AppCompatActivity {
                 int indexSeleccion = seleccionUsuario.size() - 1;
                 if (!palabra.equals(oracionCorrecta[indexSeleccion])) {
                     intento++;
-                    mostrarMensaje("Incorrecto. Intento " + intento + "/3");
+                    int intentosRestantes = 3 - intento;
 
                     if (intento >= 3) {
-                        mostrarMensaje("Sin intentos 😞. Intenta de nuevo.");
+                        long tiempoFin = System.currentTimeMillis();
+                        long duracionSegundos = (tiempoFin - tiempoInicio) / 1000;
+                        mostrarMensaje("Perdió 😞 / Terminó en " + duracionSegundos + " segundos.");
                         bloquearBotones();
+                    } else {
+                        mostrarMensaje("Te quedan " + intentosRestantes + " intento(s) 😬");
+                        new android.os.Handler().postDelayed(this::reiniciarIntento, 1000);
                     }
 
-                    new android.os.Handler().postDelayed(this::reiniciarIntento, 1000);
                 } else {
                     if (seleccionUsuario.size() == oracionCorrecta.length) {
-                        mostrarMensaje("¡Ganaste! 🎉");
+                        long tiempoFin = System.currentTimeMillis();
+                        long duracionSegundos = (tiempoFin - tiempoInicio) / 1000;
+                        mostrarMensaje("¡Ganó! 🎉 / Terminó en " + duracionSegundos + " segundos - Intentos: " + intento);
                         bloquearBotones();
                     }
                 }
             });
         }
     }
+
+
+
 
     private void reiniciarIntento() {
         seleccionUsuario.clear();
