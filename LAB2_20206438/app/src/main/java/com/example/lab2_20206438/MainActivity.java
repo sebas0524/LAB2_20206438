@@ -1,6 +1,7 @@
 package com.example.lab2_20206438;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,12 +19,25 @@ public class MainActivity extends AppCompatActivity {
         btnCiberseguridad = findViewById(R.id.btnCiberseguridad);
         btnOpticas = findViewById(R.id.btnOpticas);
 
-        // Luego puedes agregar acciones aquí si quieres
-        // Por ejemplo:
-        /*
+        // Acción para Software
         btnSoftware.setOnClickListener(v -> {
-            // Acción para Software
+            Intent intent = new Intent(MainActivity.this, Juego.class);
+            intent.putExtra("tema", "software");  // Pasar el tema seleccionado
+            startActivity(intent);
         });
-        */
+
+        // Acción para Ciberseguridad
+        btnCiberseguridad.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Juego.class);
+            intent.putExtra("tema", "ciberseguridad");  // Pasar el tema seleccionado
+            startActivity(intent);
+        });
+
+        // Acción para Opticas
+        btnOpticas.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Juego.class);
+            intent.putExtra("tema", "opticas");  // Pasar el tema seleccionado
+            startActivity(intent);
+        });
     }
 }

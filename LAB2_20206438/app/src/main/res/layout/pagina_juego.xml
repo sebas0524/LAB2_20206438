@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- Barra superior -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_previous"
+            android:background="@android:color/transparent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TeleMemo"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/btnExpand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_crop"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+
+    <!-- Grid de palabras -->
+    <GridLayout
+        android:id="@+id/gridPalabras"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="4"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center">
+
+        <!-- 12 botones style="@style/PalabraBtn"-->
+        <Button android:id="@+id/btn1"/>
+        <Button android:id="@+id/btn2"/>
+        <Button android:id="@+id/btn3"/>
+        <Button android:id="@+id/btn4"/>
+        <Button android:id="@+id/btn5"/>
+        <Button android:id="@+id/btn6"/>
+        <Button android:id="@+id/btn7"/>
+        <Button android:id="@+id/btn8"/>
+        <Button android:id="@+id/btn9"/>
+        <Button android:id="@+id/btn10"/>
+        <Button android:id="@+id/btn11"/>
+        <Button android:id="@+id/btn12"/>
+
+    </GridLayout>
+
+    <!-- Botón JUGAR -->
+    <Button
+        android:id="@+id/btnJugar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jugar"
+        android:layout_marginTop="32dp" />
+</LinearLayout>
