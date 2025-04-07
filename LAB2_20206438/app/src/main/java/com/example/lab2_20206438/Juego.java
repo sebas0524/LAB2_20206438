@@ -74,18 +74,22 @@ public class Juego extends AppCompatActivity {
         List<String> palabras = Arrays.asList(oracionCorrecta.clone());
         Collections.shuffle(palabras);
 
+        // Inicializar los botones con palabras ocultas
         for (int i = 0; i < palabraButtons.length; i++) {
             Button btn = palabraButtons[i];
-            btn.setText(palabras.get(i));
+            btn.setText("");  // Palabra oculta inicialmente
             btn.setEnabled(true);
             btn.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
 
+            int finalI = i;
             btn.setOnClickListener(v -> {
-                String palabra = btn.getText().toString();
+                String palabra = palabras.get(finalI);
+                btn.setText(palabra);  // Mostrar la palabra al hacer clic
                 seleccionUsuario.add(palabra);
                 btn.setEnabled(false);
                 btn.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
 
+                // Verificar si la secuencia es correcta
                 if (seleccionUsuario.size() == oracionCorrecta.length) {
                     if (validarSecuencia(seleccionUsuario, oracionCorrecta)) {
                         mostrarMensaje("¡Ganaste! 🎉");
@@ -119,6 +123,7 @@ public class Juego extends AppCompatActivity {
     private void reiniciarIntento() {
         seleccionUsuario.clear();
         for (Button btn : palabraButtons) {
+            btn.setText("");  // Volver a ocultar las palabras
             btn.setEnabled(true);
             btn.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
         }
