@@ -84,28 +84,33 @@ public class Juego extends AppCompatActivity {
             int finalI = i;
             btn.setOnClickListener(v -> {
                 String palabra = palabras.get(finalI);
-                btn.setText(palabra);  // Mostrar la palabra al hacer clic
-                seleccionUsuario.add(palabra);
+                btn.setText(palabra);
                 btn.setEnabled(false);
                 btn.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
 
-                // Verificar si la secuencia es correcta
-                if (seleccionUsuario.size() == oracionCorrecta.length) {
-                    if (validarSecuencia(seleccionUsuario, oracionCorrecta)) {
+                seleccionUsuario.add(palabra);
+
+                int indexSeleccion = seleccionUsuario.size() - 1;
+                if (!palabra.equals(oracionCorrecta[indexSeleccion])) {
+                    intento++;
+                    mostrarMensaje("Incorrecto. Intento " + intento + "/3");
+
+                    if (intento >= 3) {
+                        mostrarMensaje("Sin intentos 😞. Intenta de nuevo.");
+                        bloquearBotones();
+                    }
+
+                    // Reset visual
+                    new android.os.Handler().postDelayed(() -> reiniciarIntento(), 1000);
+                } else {
+                    // Si la secuencia está completa y correcta
+                    if (seleccionUsuario.size() == oracionCorrecta.length) {
                         mostrarMensaje("¡Ganaste! 🎉");
                         bloquearBotones();
-                    } else {
-                        intento++;
-                        if (intento >= 3) {
-                            mostrarMensaje("Sin intentos 😞. Intenta de nuevo.");
-                            bloquearBotones();
-                        } else {
-                            mostrarMensaje("Incorrecto. Intento " + intento + "/3");
-                            reiniciarIntento();
-                        }
                     }
                 }
             });
+
         }
 
         btnJugar.setOnClickListener(v -> reiniciarIntento()); // Reiniciar desde botón si quieres
@@ -123,7 +128,7 @@ public class Juego extends AppCompatActivity {
     private void reiniciarIntento() {
         seleccionUsuario.clear();
         for (Button btn : palabraButtons) {
-            btn.setText("");  // Volver a ocultar las palabras
+            btn.setText("");
             btn.setEnabled(true);
             btn.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
         }
