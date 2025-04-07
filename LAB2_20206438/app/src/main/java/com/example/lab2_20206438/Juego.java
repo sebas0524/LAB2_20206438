@@ -1,3 +1,4 @@
+
 package com.example.lab2_20206438;
 
 import android.content.Intent;
@@ -20,7 +21,6 @@ public class Juego extends AppCompatActivity {
     List<String> seleccionUsuario = new ArrayList<>();
     int intento = 0;
 
-    // Oraciones por temática
     String[][] oracionesSoftware = {
             {"La", "fibra", "óptica", "envía", "datos", "a", "gran", "velocidad", "evitando", "cualquier", "interferencia", "eléctrica"},
             {"Los", "amplificadores", "EDFA", "mejoran", "la", "señal", "óptica", "en", "redes", "de", "larga", "distancia"}
@@ -41,7 +41,6 @@ public class Juego extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pagina_juego);
 
-        // Asignación de botones
         for (int i = 0; i < 12; i++) {
             String buttonID = "btn" + (i + 1);
             int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
@@ -52,10 +51,10 @@ public class Juego extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         btnExpand = findViewById(R.id.btnExpand);
 
-        // Obtener tema
         String tema = getIntent().getStringExtra("tema");
         Random random = new Random();
 
+        // Seleccionamos oración correcta, pero NO la usamos hasta presionar "Jugar"
         switch (tema) {
             case "software":
                 oracionCorrecta = oracionesSoftware[random.nextInt(oracionesSoftware.length)];
@@ -70,24 +69,38 @@ public class Juego extends AppCompatActivity {
                 oracionCorrecta = new String[12];
         }
 
-        // Desordenar y mostrar en botones
+        // Los botones empiezan vacíos y deshabilitados
+        for (Button btn : palabraButtons) {
+            btn.setText("");
+            btn.setEnabled(false);
+            btn.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+        }
+
+        btnJugar.setOnClickListener(v -> iniciarJuego());
+
+        btnBack.setOnClickListener(v -> finish());
+    }
+
+    private void iniciarJuego() {
+        seleccionUsuario.clear();
+        intento = 0;
+
         List<String> palabras = Arrays.asList(oracionCorrecta.clone());
         Collections.shuffle(palabras);
 
-        // Inicializar los botones con palabras ocultas
         for (int i = 0; i < palabraButtons.length; i++) {
             Button btn = palabraButtons[i];
-            btn.setText("");  // Palabra oculta inicialmente
+            String palabra = palabras.get(i);
+
+            btn.setText(""); // Inicialmente oculto
             btn.setEnabled(true);
             btn.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
 
             int finalI = i;
             btn.setOnClickListener(v -> {
-                String palabra = palabras.get(finalI);
                 btn.setText(palabra);
                 btn.setEnabled(false);
                 btn.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-
                 seleccionUsuario.add(palabra);
 
                 int indexSeleccion = seleccionUsuario.size() - 1;
@@ -100,29 +113,15 @@ public class Juego extends AppCompatActivity {
                         bloquearBotones();
                     }
 
-                    // Reset visual
-                    new android.os.Handler().postDelayed(() -> reiniciarIntento(), 1000);
+                    new android.os.Handler().postDelayed(this::reiniciarIntento, 1000);
                 } else {
-                    // Si la secuencia está completa y correcta
                     if (seleccionUsuario.size() == oracionCorrecta.length) {
                         mostrarMensaje("¡Ganaste! 🎉");
                         bloquearBotones();
                     }
                 }
             });
-
         }
-
-        btnJugar.setOnClickListener(v -> reiniciarIntento()); // Reiniciar desde botón si quieres
-
-        btnBack.setOnClickListener(v -> finish()); // volver atrás
-    }
-
-    private boolean validarSecuencia(List<String> seleccion, String[] correcta) {
-        for (int i = 0; i < correcta.length; i++) {
-            if (!seleccion.get(i).equals(correcta[i])) return false;
-        }
-        return true;
     }
 
     private void reiniciarIntento() {
