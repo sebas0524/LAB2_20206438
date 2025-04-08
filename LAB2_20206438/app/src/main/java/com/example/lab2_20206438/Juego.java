@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.*;
@@ -22,6 +23,8 @@ public class Juego extends AppCompatActivity {
     List<String> seleccionUsuario = new ArrayList<>();
     int intento = 0;
     long tiempoInicio;
+    TextView txtMensaje;
+    boolean juegoIniciado = false;
 
     String[][] oracionesSoftware = {
             {"La", "fibra", "óptica", "envía", "datos", "a", "gran", "velocidad", "evitando", "cualquier", "interferencia", "eléctrica"},
@@ -52,6 +55,7 @@ public class Juego extends AppCompatActivity {
         btnJugar = findViewById(R.id.btnJugar);
         btnBack = findViewById(R.id.btnBack);
         btnExpand = findViewById(R.id.btnExpand);
+        txtMensaje = findViewById(R.id.txtMensaje);
 
         String tema = getIntent().getStringExtra("tema");
         Random random = new Random();
@@ -78,8 +82,19 @@ public class Juego extends AppCompatActivity {
             btn.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
         }
 
-        btnJugar.setOnClickListener(v -> iniciarJuego());
-
+        //btnJugar.setOnClickListener(v -> iniciarJuego());
+        btnJugar.setOnClickListener(v -> {
+            if (!juegoIniciado) {
+                iniciarJuego();
+                btnJugar.setText("Nuevo Juego");
+                juegoIniciado = true;
+            } else {
+                // Vuelve al inicio
+                Intent intent = new Intent(Juego.this, MainActivity.class); // Ajusta si tu inicio es otro activity
+                startActivity(intent);
+                finish();
+            }
+        });
         btnBack.setOnClickListener(v -> finish());
     }
 
@@ -152,6 +167,7 @@ public class Juego extends AppCompatActivity {
     }
 
     private void mostrarMensaje(String mensaje) {
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+        txtMensaje.setText(mensaje);
     }
 }

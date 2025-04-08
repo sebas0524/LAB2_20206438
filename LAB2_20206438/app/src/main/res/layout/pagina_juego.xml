@@ -63,7 +63,16 @@
         <Button android:id="@+id/btn12"/>
 
     </GridLayout>
-
+    <TextView
+        android:id="@+id/txtMensaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:padding="8dp" />
     <!-- Botón JUGAR -->
     <Button
         android:id="@+id/btnJugar"
