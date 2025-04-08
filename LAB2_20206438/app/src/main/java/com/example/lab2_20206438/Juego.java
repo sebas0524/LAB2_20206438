@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,8 @@ public class Juego extends AppCompatActivity {
     long tiempoInicio;
     TextView txtMensaje;
     boolean juegoIniciado = false;
+
+    public static List<String> historialResultados = new ArrayList<>();
 
     String[][] oracionesSoftware = {
             {"La", "fibra", "óptica", "envía", "datos", "a", "gran", "velocidad", "evitando", "cualquier", "interferencia", "eléctrica"},
@@ -90,12 +93,29 @@ public class Juego extends AppCompatActivity {
                 juegoIniciado = true;
             } else {
                 // Vuelve al inicio
+                if (seleccionUsuario.size() > 0 && seleccionUsuario.size() < oracionCorrecta.length && intento < 3) {
+                    Juego.historialResultados.add("Juego " + (Juego.historialResultados.size() + 1) + ": Canceló ❌");
+                }
+
                 Intent intent = new Intent(Juego.this, MainActivity.class); // Ajusta si tu inicio es otro activity
                 startActivity(intent);
                 finish();
             }
         });
         btnBack.setOnClickListener(v -> finish());
+        btnExpand.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(this, btnExpand);
+            popup.getMenuInflater().inflate(R.menu.estadisticas, popup.getMenu());
+            popup.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.menu_estadisticas) {
+                    startActivity(new Intent(this, Estadisticas.class));
+                    return true;
+                }
+                return false;
+            });
+            popup.show();
+        });
+
     }
 
     private void iniciarJuego() {
@@ -129,7 +149,9 @@ public class Juego extends AppCompatActivity {
                     if (intento >= 3) {
                         long tiempoFin = System.currentTimeMillis();
                         long duracionSegundos = (tiempoFin - tiempoInicio) / 1000;
-                        mostrarMensaje("Perdió 😞 / Terminó en " + duracionSegundos + " segundos.");
+                        String mensaje = "Perdió 😞 / Terminó en " + duracionSegundos + " segundos.";
+                        mostrarMensaje(mensaje);
+                        historialResultados.add("Juego " + (historialResultados.size() + 1) + ": " + mensaje);
                         bloquearBotones();
                     } else {
                         mostrarMensaje("Te quedan " + intentosRestantes + " intento(s) 😬");
@@ -140,7 +162,10 @@ public class Juego extends AppCompatActivity {
                     if (seleccionUsuario.size() == oracionCorrecta.length) {
                         long tiempoFin = System.currentTimeMillis();
                         long duracionSegundos = (tiempoFin - tiempoInicio) / 1000;
-                        mostrarMensaje("¡Ganó! 🎉 / Terminó en " + duracionSegundos + " segundos - Intentos: " + intento);
+                        //mostrarMensaje("¡Ganó! 🎉 / Terminó en " + duracionSegundos + " segundos - Intentos: " + intento);
+                        String mensaje = "¡Ganó! 🎉 / Terminó en " + duracionSegundos + " segundos - Intentos: " + intento;
+                        mostrarMensaje(mensaje);
+                        historialResultados.add("Juego " + (historialResultados.size() + 1) + ": " + mensaje);
                         bloquearBotones();
                     }
                 }
