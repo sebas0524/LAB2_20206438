@@ -102,6 +102,7 @@ public class Juego extends AppCompatActivity {
                 finish();
             }
         });
+
         btnBack.setOnClickListener(v -> finish());
         btnExpand.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(this, btnExpand);
@@ -194,5 +195,12 @@ public class Juego extends AppCompatActivity {
     private void mostrarMensaje(String mensaje) {
         //Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
         txtMensaje.setText(mensaje);
+    }
+    private boolean seCanceloJuego() {
+        boolean aunJugando = juegoIniciado && seleccionUsuario.size() > 0
+                && seleccionUsuario.size() < oracionCorrecta.length
+                && intento < 3;
+
+        return aunJugando;
     }
 }
