@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -86,7 +87,7 @@ public class Juego extends AppCompatActivity {
         }
 
         //btnJugar.setOnClickListener(v -> iniciarJuego());
-        btnJugar.setOnClickListener(v -> {
+        /*btnJugar.setOnClickListener(v -> {
             if (!juegoIniciado) {
                 iniciarJuego();
                 btnJugar.setText("Nuevo Juego");
@@ -101,7 +102,30 @@ public class Juego extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
+        });*/
+        btnJugar.setOnClickListener(v -> {
+            if (!juegoIniciado) {
+                // Si el juego no ha comenzado, inicias el juego normalmente
+                iniciarJuego();
+                btnJugar.setText("Nuevo Juego");
+                juegoIniciado = true;
+            } else {
+                // Simplificar la condición para probar
+                if (intento < 3) {
+                    // Aquí agregamos el resultado "Canceló" al historial
+                    historialResultados.add("Juego " + (historialResultados.size() + 1) + ": Canceló ❌");
+                    Toast.makeText(this, "Juego Cancelado", Toast.LENGTH_SHORT).show();
+                }
+
+                // Reiniciamos el juego
+                Intent intent = new Intent(Juego.this, MainActivity.class); // Cambia MainActivity si es necesario
+                startActivity(intent);
+                finish();
+            }
         });
+
+
+
 
         btnBack.setOnClickListener(v -> finish());
         btnExpand.setOnClickListener(v -> {
@@ -196,11 +220,5 @@ public class Juego extends AppCompatActivity {
         //Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
         txtMensaje.setText(mensaje);
     }
-    private boolean seCanceloJuego() {
-        boolean aunJugando = juegoIniciado && seleccionUsuario.size() > 0
-                && seleccionUsuario.size() < oracionCorrecta.length
-                && intento < 3;
 
-        return aunJugando;
-    }
 }

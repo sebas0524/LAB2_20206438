@@ -2,6 +2,7 @@ package com.example.lab2_20206438;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -27,6 +28,7 @@ public class Estadisticas extends AppCompatActivity {
         LinearLayout layoutHistorial = findViewById(R.id.layoutHistorial);
 
         for (String resultado : Juego.historialResultados) {
+            Log.d("Estadisticas", "Resultado: " + resultado);
             TextView txt = new TextView(this);
             txt.setText(resultado);
             txt.setTextSize(16);
