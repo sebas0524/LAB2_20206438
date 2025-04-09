@@ -28,25 +28,30 @@
             android:text="TeleMemo"
             android:gravity="center"
             android:textStyle="bold"
+            android:textColor="#000000"
             android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/btnExpand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_crop"
+            android:src="@drawable/historial"
             android:background="@android:color/transparent" />
+
     </LinearLayout>
 
     <!-- Grid de palabras -->
     <GridLayout
         android:id="@+id/gridPalabras"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="3"
         android:rowCount="4"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:alignmentMode="alignMargins"
+        android:columnOrderPreserved="false"
+        android:padding="8dp">
 
         <!-- 12 botones style="@style/PalabraBtn"-->
         <Button android:id="@+id/btn1"/>
@@ -79,5 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Jugar"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#2196F3"
+        android:textColor="#000000" />
 </LinearLayout>

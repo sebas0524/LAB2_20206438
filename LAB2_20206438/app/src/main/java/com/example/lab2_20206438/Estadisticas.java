@@ -1,6 +1,7 @@
 package com.example.lab2_20206438;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -28,10 +29,10 @@ public class Estadisticas extends AppCompatActivity {
         LinearLayout layoutHistorial = findViewById(R.id.layoutHistorial);
 
         for (String resultado : Juego.historialResultados) {
-            Log.d("Estadisticas", "Resultado: " + resultado);
             TextView txt = new TextView(this);
             txt.setText(resultado);
             txt.setTextSize(16);
+            txt.setTextColor(Color.BLACK);
             txt.setPadding(8, 8, 8, 8);
             layoutHistorial.addView(txt);
         }

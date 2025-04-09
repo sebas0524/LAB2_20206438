@@ -82,27 +82,12 @@ public class Juego extends AppCompatActivity {
         // Los botones empiezan vacíos y deshabilitados
         for (Button btn : palabraButtons) {
             btn.setText("");
+            btn.setTextColor(Color.BLACK);
             btn.setEnabled(false);
             btn.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
         }
 
-        //btnJugar.setOnClickListener(v -> iniciarJuego());
-        /*btnJugar.setOnClickListener(v -> {
-            if (!juegoIniciado) {
-                iniciarJuego();
-                btnJugar.setText("Nuevo Juego");
-                juegoIniciado = true;
-            } else {
-                // Vuelve al inicio
-                if (seleccionUsuario.size() > 0 && seleccionUsuario.size() < oracionCorrecta.length && intento < 3) {
-                    Juego.historialResultados.add("Juego " + (Juego.historialResultados.size() + 1) + ": Canceló ❌");
-                }
 
-                Intent intent = new Intent(Juego.this, MainActivity.class); // Ajusta si tu inicio es otro activity
-                startActivity(intent);
-                finish();
-            }
-        });*/
         btnJugar.setOnClickListener(v -> {
             if (!juegoIniciado) {
                 // Si el juego no ha comenzado, inicias el juego normalmente
@@ -113,7 +98,7 @@ public class Juego extends AppCompatActivity {
                 // Simplificar la condición para probar
                 if (intento < 3) {
                     // Aquí agregamos el resultado "Canceló" al historial
-                    historialResultados.add("Juego " + (historialResultados.size() + 1) + ": Canceló ❌");
+                    historialResultados.add("Juego " + (historialResultados.size() + 1) + ": Canceló");
                     Toast.makeText(this, "Juego Cancelado", Toast.LENGTH_SHORT).show();
                 }
 
@@ -163,7 +148,7 @@ public class Juego extends AppCompatActivity {
             btn.setOnClickListener(v -> {
                 btn.setText(palabra);
                 btn.setEnabled(false);
-                btn.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+                btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#90CAF9")));
                 seleccionUsuario.add(palabra);
 
                 int indexSeleccion = seleccionUsuario.size() - 1;
@@ -174,12 +159,12 @@ public class Juego extends AppCompatActivity {
                     if (intento >= 3) {
                         long tiempoFin = System.currentTimeMillis();
                         long duracionSegundos = (tiempoFin - tiempoInicio) / 1000;
-                        String mensaje = "Perdió 😞 / Terminó en " + duracionSegundos + " segundos.";
+                        String mensaje = "Perdió  / Terminó en " + duracionSegundos + " segundos.";
                         mostrarMensaje(mensaje);
                         historialResultados.add("Juego " + (historialResultados.size() + 1) + ": " + mensaje);
                         bloquearBotones();
                     } else {
-                        mostrarMensaje("Te quedan " + intentosRestantes + " intento(s) 😬");
+                        mostrarMensaje("Te quedan " + intentosRestantes + " intento(s)");
                         new android.os.Handler().postDelayed(this::reiniciarIntento, 1000);
                     }
 
@@ -187,8 +172,7 @@ public class Juego extends AppCompatActivity {
                     if (seleccionUsuario.size() == oracionCorrecta.length) {
                         long tiempoFin = System.currentTimeMillis();
                         long duracionSegundos = (tiempoFin - tiempoInicio) / 1000;
-                        //mostrarMensaje("¡Ganó! 🎉 / Terminó en " + duracionSegundos + " segundos - Intentos: " + intento);
-                        String mensaje = "¡Ganó! 🎉 / Terminó en " + duracionSegundos + " segundos - Intentos: " + intento;
+                        String mensaje = "¡Ganó!  / Terminó en " + duracionSegundos + " segundos - Intentos: " + intento;
                         mostrarMensaje(mensaje);
                         historialResultados.add("Juego " + (historialResultados.size() + 1) + ": " + mensaje);
                         bloquearBotones();
