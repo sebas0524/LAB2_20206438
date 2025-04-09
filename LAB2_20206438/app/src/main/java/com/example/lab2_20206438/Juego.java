@@ -96,7 +96,6 @@ public class Juego extends AppCompatActivity {
             } else {
                 if (intento < 3) {
                     historialResultados.add("Juego " + (historialResultados.size() + 1) + ": Canceló");
-                    Toast.makeText(this, "Juego Cancelado", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent(Juego.this, MainActivity.class);
                 startActivity(intent);
