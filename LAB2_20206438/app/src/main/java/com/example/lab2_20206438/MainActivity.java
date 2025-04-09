@@ -14,29 +14,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pagina_inicio);
 
-        // Referenciar botones
+        // Botones de la vista de inicio
         btnSoftware = findViewById(R.id.btnSoftware);
         btnCiberseguridad = findViewById(R.id.btnCiberseguridad);
         btnOpticas = findViewById(R.id.btnOpticas);
 
-        // Acción para Software
+        // Software
         btnSoftware.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Juego.class);
-            intent.putExtra("tema", "software");  // Pasar el tema seleccionado
+            intent.putExtra("tema", "software");
             startActivity(intent);
         });
 
-        // Acción para Ciberseguridad
+        //  Ciberseguridad
         btnCiberseguridad.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Juego.class);
-            intent.putExtra("tema", "ciberseguridad");  // Pasar el tema seleccionado
+            intent.putExtra("tema", "ciberseguridad");
             startActivity(intent);
         });
 
-        // Acción para Opticas
+        // Opticas
         btnOpticas.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Juego.class);
-            intent.putExtra("tema", "opticas");  // Pasar el tema seleccionado
+            intent.putExtra("tema", "opticas");
             startActivity(intent);
         });
     }

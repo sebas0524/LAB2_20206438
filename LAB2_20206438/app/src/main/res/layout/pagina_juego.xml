@@ -6,7 +6,6 @@
     android:padding="16dp"
     android:background="#FFFFFF">
 
-    <!-- Barra superior -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +39,6 @@
 
     </LinearLayout>
 
-    <!-- Grid de palabras -->
     <GridLayout
         android:id="@+id/gridPalabras"
         android:layout_width="wrap_content"
@@ -53,7 +51,6 @@
         android:columnOrderPreserved="false"
         android:padding="8dp">
 
-        <!-- 12 botones style="@style/PalabraBtn"-->
         <Button android:id="@+id/btn1"/>
         <Button android:id="@+id/btn2"/>
         <Button android:id="@+id/btn3"/>
@@ -78,7 +75,7 @@
         android:gravity="center"
         android:layout_marginTop="24dp"
         android:padding="8dp" />
-    <!-- Botón JUGAR -->
+
     <Button
         android:id="@+id/btnJugar"
         android:layout_width="match_parent"

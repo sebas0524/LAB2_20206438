@@ -21,11 +21,10 @@ public class Estadisticas extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
         Button btnNuevoJuego = findViewById(R.id.btnNuevoJuego);
         btnNuevoJuego.setOnClickListener(v -> {
-            Intent intent = new Intent(Estadisticas.this, MainActivity.class); // Cambia MainActivity si quieres que vaya a otro
+            Intent intent = new Intent(Estadisticas.this, MainActivity.class);
             startActivity(intent);
-            finish(); // Finaliza esta pantalla para que no quede abierta en la pila
+            finish();
         });
-        // Aquí muestras estadísticas con TextViews o lo que quieras
         LinearLayout layoutHistorial = findViewById(R.id.layoutHistorial);
 
         for (String resultado : Juego.historialResultados) {

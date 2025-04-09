@@ -18,7 +18,7 @@ public class Juego extends AppCompatActivity {
 
     Button[] palabraButtons = new Button[12];
     Button btnJugar;
-    //long  tiempoInicio;
+
     ImageButton btnBack, btnExpand;
 
     String[] oracionCorrecta;
@@ -64,7 +64,7 @@ public class Juego extends AppCompatActivity {
         String tema = getIntent().getStringExtra("tema");
         Random random = new Random();
 
-        // Seleccionamos oración correcta, pero NO la usamos hasta presionar "Jugar"
+        // Aquí se selecciona la oración correcta, pero no la usamos hasta presionar el botón "Jugar"
         switch (tema) {
             case "software":
                 oracionCorrecta = oracionesSoftware[random.nextInt(oracionesSoftware.length)];
@@ -79,7 +79,7 @@ public class Juego extends AppCompatActivity {
                 oracionCorrecta = new String[12];
         }
 
-        // Los botones empiezan vacíos y deshabilitados
+        // Botones empiezan vacíos y deshabilitados
         for (Button btn : palabraButtons) {
             btn.setText("");
             btn.setTextColor(Color.BLACK);
@@ -90,20 +90,15 @@ public class Juego extends AppCompatActivity {
 
         btnJugar.setOnClickListener(v -> {
             if (!juegoIniciado) {
-                // Si el juego no ha comenzado, inicias el juego normalmente
                 iniciarJuego();
                 btnJugar.setText("Nuevo Juego");
                 juegoIniciado = true;
             } else {
-                // Simplificar la condición para probar
                 if (intento < 3) {
-                    // Aquí agregamos el resultado "Canceló" al historial
                     historialResultados.add("Juego " + (historialResultados.size() + 1) + ": Canceló");
                     Toast.makeText(this, "Juego Cancelado", Toast.LENGTH_SHORT).show();
                 }
-
-                // Reiniciamos el juego
-                Intent intent = new Intent(Juego.this, MainActivity.class); // Cambia MainActivity si es necesario
+                Intent intent = new Intent(Juego.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -131,7 +126,7 @@ public class Juego extends AppCompatActivity {
     private void iniciarJuego() {
         seleccionUsuario.clear();
         intento = 0;
-        tiempoInicio = System.currentTimeMillis(); // 👈 Marcamos el inicio
+        tiempoInicio = System.currentTimeMillis();
 
         List<String> palabras = Arrays.asList(oracionCorrecta.clone());
         Collections.shuffle(palabras);
@@ -201,7 +196,6 @@ public class Juego extends AppCompatActivity {
     }
 
     private void mostrarMensaje(String mensaje) {
-        //Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
         txtMensaje.setText(mensaje);
     }
 
